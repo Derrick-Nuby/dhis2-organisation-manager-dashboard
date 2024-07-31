@@ -1,0 +1,18 @@
+.sidebar {
+    background-color: #F3F3F3;
+}
+
+.menuLinks {
+    list-style-type: none;
+    margin: 0px;
+    padding: 0px;
+}
+
+.linkDefault {
+    text-decoration: none;
+    color: inherit;
+    margin-bottom: 1px;
+    /* background-color: blue; */
+    padding: 12px 30px;
+    display: block;
+}
