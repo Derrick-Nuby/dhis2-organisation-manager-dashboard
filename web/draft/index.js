@@ -1,12 +1,9 @@
-PBFSetup;
-PBFDataEntry;
-QualityScoreEntry;
-Qualitymaxscore;
-DataElementTariffandTargetManagement;
-BankDetailsManagement;
-QualityScorePayment;
-QualityScorePayment;
-Lookup;
-Lookup;
-PaymentAdjustment;
-PaymentAdjustment;
+PBFSetupPage,
+    PBFDataEntryPage,
+    QualityScoreEntryPage,
+    QualitymaxscorePage,
+    DataElementTariffandTargetManagementPage,
+    BankDetailsManagementPage,
+    QualityScorePaymentPage,
+    LookupPage,
+    PaymentAdjustmentPage,;
