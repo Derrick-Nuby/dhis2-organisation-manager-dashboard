@@ -7,5 +7,5 @@ export { default as BankDetailsManagementPage } from './BankDetailsManagementPag
 export { default as QualityScorePaymentPage } from './QualityScorePaymentPage';
 export { default as LookupPage } from './LookupPage';
 export { default as PaymentAdjustmentPage } from './PaymentAdjustmentPage';
-export { default as Home } from './Home';
+export { default as HomePage } from './HomePage';
 export { default as NotFoundPage } from './NotFoundPage';

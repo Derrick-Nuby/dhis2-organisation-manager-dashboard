@@ -20,11 +20,11 @@ const menuLinks = [
         link: "/qualitymaxscore"
     },
     {
-        name: "Data Element Tariff and Target Management",
+        name: "Data Element Tariff",
         link: "/dataelementtariffandtargetmanagement"
     },
     {
-        name: "Bank Details Management",
+        name: "Bank Details Manager",
         link: "/bankdetailsmanagement"
     },
     {

@@ -1,0 +1,35 @@
+.navImg {
+    height: 70px;
+    border-radius: 100%;
+    border: 1px solid black;
+}
+
+.homeSection {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin-top: 50px;
+}
+
+.navSection {
+    text-decoration: none;
+    color: black;
+}
+
+.navItems {
+    display: flex;
+    gap: 10px;
+    border-radius: 10px;
+    padding: 10px 20px;
+    background-color: #F3F3F3;
+}
+
+.navItems:hover {
+    background-color: #2C6693;
+    color: white;
+}
+
+.navItemName {
+    font-size: 24px;
+    font-weight: bold;
+}

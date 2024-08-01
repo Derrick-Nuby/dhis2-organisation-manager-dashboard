@@ -1,6 +1,6 @@
 import MainLayout from './layout/MainLayout';
 import {
-    Home,
+    HomePage,
     NotFoundPage,
     PBFSetupPage,
     PBFDataEntryPage,
@@ -24,7 +24,7 @@ const App: React.FC = () => {
         createRoutesFromElements(
             <>
                 <Route path="/" element={<MainLayout />} >
-                    <Route index element={<Home />} />
+                    <Route index element={<HomePage />} />
                     <Route path="*" element={<NotFoundPage />} />
                     <Route path="/pbfsetup" element={<PBFSetupPage />} />
                     <Route path="/pbfdataentry" element={<PBFDataEntryPage />} />
