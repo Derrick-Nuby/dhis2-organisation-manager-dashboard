@@ -1,9 +1,10 @@
+import DataTariff from './../components/dataTariff/DataTariff';
 import React from 'react';
 
 const DataElementTariffandTargetManagementPage = () => {
     return (
         <>
-            <h2>Data Element Tariff and Target Management Page</h2>
+            <DataTariff />
         </>
     );
 };
