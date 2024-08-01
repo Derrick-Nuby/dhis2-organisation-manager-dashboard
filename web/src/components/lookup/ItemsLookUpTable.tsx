@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { DataTable, TableHead, DataTableRow, DataTableColumnHeader, TableBody, DataTableCell, Button } from '@dhis2/ui';
-import { useDataQuery } from '@dhis2/app-runtime';
+import { useDataQuery, useDataMutation } from '@dhis2/app-runtime';
 import { Pagination, CircularLoader } from '@dhis2/ui';
 
 const query = {
@@ -12,22 +12,41 @@ const query = {
     },
 };
 
-const ItemsLookUpTable = () => {
+const deleteMutation = {
+    resource: 'dataStore/lookup',
+    id: ({ id }) => id,
+    type: 'delete',
+};
 
+interface ItemsLookUpTableProps {
+    refetchTrigger: number;
+}
+
+
+const ItemsLookUpTable: React.FC<ItemsLookUpTableProps> = ({ refetchTrigger }) => {
     const { loading, error, data, refetch } = useDataQuery(query);
+    const [deleteLookup, { loading: deleting }] = useDataMutation(deleteMutation, {
+        onComplete: () => {
+            refetch();
+        },
+        onError: (error) => {
+            console.error('Error deleting lookup:', error);
+        },
+    });
 
-    console.log('Data:', data.dataStore.entries);
+    useEffect(() => {
+        refetch();
+    }, [refetchTrigger, refetch]);
 
 
     const handleEditLookup = () => {
-        // setShowModal(true);
         console.log("handleEditLookup");
     };
 
-    const handleDeleteLookup = () => {
-        console.log("handleDeleteLookup");
-
+    const handleDeleteLookup = (key) => {
+        deleteLookup({ id: key });
     };
+
     return (
         <div>
             <DataTable>
@@ -42,10 +61,8 @@ const ItemsLookUpTable = () => {
                     </DataTableRow>
                 </TableHead>
                 <TableBody>
-                    {loading && <CircularLoader />}
-                    {error && <span>{`ERROR: ${error.message}`}</span>}
-                    {data && (
-                        data.dataStore.entries.map((element, index) => (
+                    {loading || deleting ? <CircularLoader /> : (
+                        data.dataStore.entries.map((element) => (
                             <DataTableRow key={element.key}>
                                 <DataTableCell>{element.value.type}</DataTableCell>
                                 <DataTableCell>{element.value.mainName}</DataTableCell>
@@ -53,8 +70,8 @@ const ItemsLookUpTable = () => {
                                 <DataTableCell>{element.value.value}</DataTableCell>
                                 <DataTableCell>{element.value.description}</DataTableCell>
                                 <DataTableCell>
-                                    <Button primary className='small' onClick={handleEditLookup}>Edit</Button>
-                                    <Button destructive className='small' onClick={handleDeleteLookup}>Delete</Button>
+                                    <Button primary className='small' onClick={() => handleEditLookup(element.key)}>Edit</Button>
+                                    <Button destructive className='small' onClick={() => handleDeleteLookup(element.key)}>Delete</Button>
                                 </DataTableCell>
                             </DataTableRow>
                         ))
