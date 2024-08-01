@@ -1,0 +1,10 @@
+.pageTitle {
+    color: #2C6693;
+    font-size: 28px;
+}
+
+.pageHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}

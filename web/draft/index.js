@@ -1,9 +1,0 @@
-PBFSetupPage,
-    PBFDataEntryPage,
-    QualityScoreEntryPage,
-    QualitymaxscorePage,
-    DataElementTariffandTargetManagementPage,
-    BankDetailsManagementPage,
-    QualityScorePaymentPage,
-    LookupPage,
-    PaymentAdjustmentPage,;
