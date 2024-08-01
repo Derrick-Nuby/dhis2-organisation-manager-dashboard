@@ -12,7 +12,15 @@
     text-decoration: none;
     color: inherit;
     margin-bottom: 1px;
-    /* background-color: blue; */
     padding: 12px 30px;
     display: block;
+}
+
+.linkDefault:hover {
+    background-color: #2C6693;
+}
+
+.active {
+    background-color: #2C6693;
+    color: white;
 }
