@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Button, DataTable, DataTableCell, DataTableColumnHeader, DataTableRow, IconAdd16, TableBody, TableFoot, TableHead, InputField } from '@dhis2/ui';
 import styles from './LookUp.module.css';
 import CustomModal from '../ui/CustomModal';
+import ItemsLookUpTable from './ItemsLookUpTable';
 
 
 const LookUp: React.FC = () => {
@@ -96,34 +97,7 @@ const LookUp: React.FC = () => {
                     />
                 </CustomModal>
             </nav>
-
-            <div>
-                <DataTable>
-                    <TableHead>
-                        <DataTableRow>
-                            <DataTableColumnHeader>TYPE</DataTableColumnHeader>
-                            <DataTableColumnHeader>NAME</DataTableColumnHeader>
-                            <DataTableColumnHeader>CODE</DataTableColumnHeader>
-                            <DataTableColumnHeader>VALUE</DataTableColumnHeader>
-                            <DataTableColumnHeader>DESCRIPTION</DataTableColumnHeader>
-                            <DataTableColumnHeader>ACTIONS</DataTableColumnHeader>
-                        </DataTableRow>
-                    </TableHead>
-                    <TableBody>
-                        <DataTableRow>
-                            <DataTableCell>TYPE</DataTableCell>
-                            <DataTableCell>NAME</DataTableCell>
-                            <DataTableCell>CODE</DataTableCell>
-                            <DataTableCell>VALUE</DataTableCell>
-                            <DataTableCell>DESCRIPTION</DataTableCell>
-                            <DataTableCell>
-                                <Button primary className='small'>Edit</Button>
-                                <Button destructive className='small'>Delete</Button>
-                            </DataTableCell>
-                        </DataTableRow>
-                    </TableBody>
-                </DataTable>
-            </div>
+            <ItemsLookUpTable />
         </div>
     );
 };
