@@ -38,6 +38,11 @@ This project is a React application that provides a dashboard for managing data 
     ```bash
     yarn start
     ```
+4. Build a deployable version:
+
+    ```bash
+    yarn build
+    ```
 
 ## Usage
 
