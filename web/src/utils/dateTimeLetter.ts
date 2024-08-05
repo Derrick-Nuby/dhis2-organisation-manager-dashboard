@@ -1,4 +1,3 @@
-// Function to generate custom string
 function generateCustomString(): string {
     const now = new Date();
     const milliseconds = now.getMilliseconds().toString().padStart(5, '0');
@@ -13,5 +12,4 @@ function generateCustomString(): string {
 
 const customNumber: string = generateCustomString();
 
-// Export the variable
 export default customNumber;

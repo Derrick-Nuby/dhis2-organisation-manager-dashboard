@@ -2,3 +2,9 @@
     color: #2C6693;
     font-size: 28px;
 }
+
+.flexContainer {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+}

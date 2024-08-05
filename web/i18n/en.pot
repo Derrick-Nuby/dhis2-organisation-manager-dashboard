@@ -5,17 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2024-07-31T13:53:45.323Z\n"
-"PO-Revision-Date: 2024-07-31T13:53:45.324Z\n"
+"POT-Creation-Date: 2024-08-05T06:13:11.269Z\n"
+"PO-Revision-Date: 2024-08-05T06:13:11.269Z\n"
 
-msgid "ERROR"
-msgstr "ERROR"
-
-msgid "Loading..."
-msgstr "Loading..."
-
-msgid "Hello {{name}}"
-msgstr "Hello {{name}}"
-
-msgid "Welcome to DHIS2!"
-msgstr "Welcome to DHIS2!"
+msgid "Parent organisation unit"
+msgstr "Parent organisation unit"

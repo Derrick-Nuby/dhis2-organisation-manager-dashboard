@@ -1,7 +1,7 @@
-import i18n from "@dhis2/d2-i18n";
-import { useEffect } from "react";
-import { OrganisationUnitTree } from "@dhis2/ui";
-import useOrgUnitRoots from "../../hooks/useOrgUnitRoots";
+import React, { useState } from 'react';
+import OrgUnitTree from './OrgUnitTree';
+import AsideDataElements from './AsideDataElements';
+import styles from './DataTariff.module.css';
 
 interface OrgUnit {
     id?: string;
@@ -9,35 +9,23 @@ interface OrgUnit {
     selected?: string[];
 }
 
-interface OrgUnitTreeProps {
-    orgUnit?: OrgUnit;
-    onChange: (orgUnit: OrgUnit) => void;
-}
+const DataTariff: React.FC = () => {
+    const [selectedOrgUnit, setSelectedOrgUnit] = useState<OrgUnit | undefined>();
 
-const OrgUnitTree: React.FC<OrgUnitTreeProps> = ({ orgUnit, onChange }) => {
-    const { roots, error } = useOrgUnitRoots();
-
-    useEffect(() => {
-        if (roots && !orgUnit && typeof onChange === 'function') {
-            const [root] = roots;
-            onChange({ ...root, selected: [root.path] });
-        }
-    }, [roots, orgUnit, onChange]);
-
-    return roots ? (
-        <div>
-            <h2>{i18n.t("Parent organisation unit")}</h2>
-            <OrganisationUnitTree
-                roots={roots.map((r) => r.id)}
-                selected={orgUnit?.selected}
-                onChange={onChange}
-                singleSelection={true}
-                initiallyExpanded={roots.map((r) => r.path)}
-            />
-        </div>
-    ) : error ? (
-        <div>{error.message}</div>
-    ) : null;
+    return (
+        <section>
+            <h2 className={`${styles.pageTitle}`}>Data Element Tariff and Target Management Page</h2>
+            <div className={`${styles.flexContainer}`}>
+                <OrgUnitTree orgUnit={selectedOrgUnit} onChange={setSelectedOrgUnit} />
+                {selectedOrgUnit && (
+                    <AsideDataElements
+                        key={selectedOrgUnit.id}
+                        selectedOrgUnitId={selectedOrgUnit.id}
+                    />
+                )}
+            </div>
+        </section>
+    );
 };
 
-export default OrgUnitTree;
+export default DataTariff;

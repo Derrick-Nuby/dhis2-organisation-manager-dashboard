@@ -12,7 +12,7 @@ interface CustomModalProps {
     isOpen: boolean;
     onClose: () => void;
     title: string;
-    children: React.ReactNode; // Allows any JSX content to be passed
+    children: React.ReactNode;
     onSave: () => void;
 }
 

@@ -13,8 +13,6 @@ const orgUnitQuerry = {
 const useOrgUnitRoots = () => {
     const { loading, error, data } = useDataQuery(orgUnitQuerry);
 
-    console.log(data);
-
 
     return {
         roots: data?.roots?.organisationUnits,
