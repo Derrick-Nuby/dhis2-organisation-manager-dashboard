@@ -50,7 +50,7 @@ const OrgUnitTree: React.FC<OrgUnitTreeProps> = ({ orgUnit, onChange }) => {
         const value = event.target.value;
         setInputValue(value);
 
-        if (value.length === 3) {
+        if (value.length >= 3) {
             refetch({ searchValue: value });
         }
     };
@@ -72,17 +72,15 @@ const OrgUnitTree: React.FC<OrgUnitTreeProps> = ({ orgUnit, onChange }) => {
             />
             {loading && <p>Loading...</p>}
             {searchResults.length > 0 && (
-                <ul className="border rounded p-2 w-full mt-2">
-                    {searchResults.map((unit) => (
-                        <li
-                            key={unit.id}
-                            onClick={() => handleSelectOrgUnit(unit)}
-                            className="cursor-pointer hover:bg-gray-200 p-1"
-                        >
-                            {unit.displayName}
-                        </li>
-                    ))}
-                </ul>
+                <OrganisationUnitTree
+                    roots={searchResults.map((r) => r.id)}
+                    selected={orgUnit?.selected}
+                    singleSelection={true}
+                    initiallyExpanded={searchResults.map((r) => r.path)}
+                    onChange={(selectedOrgUnits) => {
+                        handleSelectOrgUnit(selectedOrgUnits);
+                    }}
+                />
             )}
             <OrganisationUnitTree
                 roots={roots.map((r) => r.id)}
