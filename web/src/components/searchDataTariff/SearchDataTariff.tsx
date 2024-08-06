@@ -14,7 +14,7 @@ const SearchDataTariff: React.FC = () => {
 
     return (
         <section>
-            <h2 className={`${styles.pageTitle}`}>Data Element Tariff and Target Management Page</h2>
+            <h2 className={`${styles.pageTitle}`}>Search Data Element Tariff and Target Management Page</h2>
             <div className={`${styles.flexContainer}`}>
                 <OrgUnitTree orgUnit={selectedOrgUnit} onChange={setSelectedOrgUnit} />
                 {selectedOrgUnit && (
