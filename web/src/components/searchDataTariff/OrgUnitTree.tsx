@@ -4,7 +4,6 @@ import { OrganisationUnitTree } from "@dhis2/ui";
 import useOrgUnitRoots from "../../hooks/useOrgUnitRoots";
 import { useDataQuery } from "@dhis2/app-runtime";
 
-
 interface OrgUnit {
     id?: string;
     path?: string;
@@ -18,6 +17,7 @@ interface OrgUnitTreeProps {
 
 const OrgUnitTree: React.FC<OrgUnitTreeProps> = ({ orgUnit, onChange }) => {
     const [inputValue, setInputValue] = useState('');
+    const [searchResults, setSearchResults] = useState<OrgUnit[]>([]);
 
     const { roots, error } = useOrgUnitRoots();
 
@@ -41,6 +41,9 @@ const OrgUnitTree: React.FC<OrgUnitTreeProps> = ({ orgUnit, onChange }) => {
 
     const { loading, data, refetch } = useDataQuery(query, {
         lazy: true,
+        onComplete: (data) => {
+            setSearchResults(data.orgUnits.organisationUnits);
+        },
     });
 
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -52,16 +55,11 @@ const OrgUnitTree: React.FC<OrgUnitTreeProps> = ({ orgUnit, onChange }) => {
         }
     };
 
-    useEffect(() => {
-        if (inputValue.length === 3) {
-            refetch({ searchValue: inputValue });
+    const handleSelectOrgUnit = (orgUnit: OrgUnit) => {
+        if (typeof onChange === 'function') {
+            onChange({ id: orgUnit.id, path: orgUnit.path, selected: [orgUnit.path] });
         }
-    }, [inputValue, refetch]);
-
-    console.log(data.orgUnits.organisationUnits);
-
-
-
+    };
 
     return roots ? (
         <div>
@@ -72,6 +70,20 @@ const OrgUnitTree: React.FC<OrgUnitTreeProps> = ({ orgUnit, onChange }) => {
                 onChange={handleInputChange}
                 className="border rounded p-2 w-full"
             />
+            {loading && <p>Loading...</p>}
+            {searchResults.length > 0 && (
+                <ul className="border rounded p-2 w-full mt-2">
+                    {searchResults.map((unit) => (
+                        <li
+                            key={unit.id}
+                            onClick={() => handleSelectOrgUnit(unit)}
+                            className="cursor-pointer hover:bg-gray-200 p-1"
+                        >
+                            {unit.displayName}
+                        </li>
+                    ))}
+                </ul>
+            )}
             <OrganisationUnitTree
                 roots={roots.map((r) => r.id)}
                 selected={orgUnit?.selected}
@@ -79,7 +91,7 @@ const OrgUnitTree: React.FC<OrgUnitTreeProps> = ({ orgUnit, onChange }) => {
                 initiallyExpanded={roots.map((r) => r.path)}
                 onChange={(selectedOrgUnits) => {
                     if (typeof onChange === 'function') {
-                        onChange({ id: selectedOrgUnits.id, selected: [selectedOrgUnits.path] });
+                        onChange({ id: selectedOrgUnits.id, path: selectedOrgUnits.path, selected: [selectedOrgUnits.path] });
                     }
                 }}
             />
