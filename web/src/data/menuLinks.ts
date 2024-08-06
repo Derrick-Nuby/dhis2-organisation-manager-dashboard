@@ -24,6 +24,10 @@ const menuLinks = [
         link: "/dataelementtariffandtargetmanagement"
     },
     {
+        name: "Search Data Element Tariff",
+        link: "/searchdataelementtariffandtargetmanagement"
+    },
+    {
         name: "Bank Details Manager",
         link: "/bankdetailsmanagement"
     },

@@ -7,6 +7,7 @@ import {
     QualityScoreEntryPage,
     QualitymaxscorePage,
     DataElementTariffandTargetManagementPage,
+    SearchDataElementTariffandTargetManagementPage,
     BankDetailsManagementPage,
     QualityScorePaymentPage,
     LookupPage,
@@ -31,6 +32,7 @@ const App: React.FC = () => {
                     <Route path="/qualityscoreentry" element={<QualityScoreEntryPage />} />
                     <Route path="/qualitymaxscore" element={<QualitymaxscorePage />} />
                     <Route path="/dataelementtariffandtargetmanagement" element={<DataElementTariffandTargetManagementPage />} />
+                    <Route path="/searchdataelementtariffandtargetmanagement" element={<SearchDataElementTariffandTargetManagementPage />} />
                     <Route path="/bankdetailsmanagement" element={<BankDetailsManagementPage />} />
                     <Route path="/qualityscorepayment" element={<QualityScorePaymentPage />} />
                     <Route path="/lookup" element={<LookupPage />} />
