@@ -1,7 +1,9 @@
 import i18n from "@dhis2/d2-i18n";
-import { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { OrganisationUnitTree } from "@dhis2/ui";
 import useOrgUnitRoots from "../../hooks/useOrgUnitRoots";
+import { useDataQuery } from "@dhis2/app-runtime";
+
 
 interface OrgUnit {
     id?: string;
@@ -15,6 +17,8 @@ interface OrgUnitTreeProps {
 }
 
 const OrgUnitTree: React.FC<OrgUnitTreeProps> = ({ orgUnit, onChange }) => {
+    const [inputValue, setInputValue] = useState('');
+
     const { roots, error } = useOrgUnitRoots();
 
     useEffect(() => {
@@ -24,8 +28,50 @@ const OrgUnitTree: React.FC<OrgUnitTreeProps> = ({ orgUnit, onChange }) => {
         }
     }, [roots, orgUnit, onChange]);
 
+    const query = {
+        orgUnits: {
+            resource: 'organisationUnits',
+            params: ({ searchValue }: { searchValue: string; }) => ({
+                fields: ['id', 'displayName', 'path'],
+                filter: `displayName:ilike:${searchValue}`,
+                paging: false,
+            }),
+        },
+    };
+
+    const { loading, data, refetch } = useDataQuery(query, {
+        lazy: true,
+    });
+
+    const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const value = event.target.value;
+        setInputValue(value);
+
+        if (value.length === 3) {
+            refetch({ searchValue: value });
+        }
+    };
+
+    useEffect(() => {
+        if (inputValue.length === 3) {
+            refetch({ searchValue: inputValue });
+        }
+    }, [inputValue, refetch]);
+
+    console.log(data.orgUnits.organisationUnits);
+
+
+
+
     return roots ? (
         <div>
+            <input
+                type="text"
+                placeholder="Search organization unit by name"
+                value={inputValue}
+                onChange={handleInputChange}
+                className="border rounded p-2 w-full"
+            />
             <OrganisationUnitTree
                 roots={roots.map((r) => r.id)}
                 selected={orgUnit?.selected}
