@@ -24,7 +24,9 @@ const OrgUnitTree: React.FC<OrgUnitTreeProps> = ({ orgUnit, onChange }) => {
     useEffect(() => {
         if (roots && !orgUnit && typeof onChange === 'function') {
             const [root] = roots;
-            onChange({ ...root, selected: [root.path] });
+            if (root) {
+                onChange({ ...root, selected: [root.path] });
+            }
         }
     }, [roots, orgUnit, onChange]);
 
@@ -42,7 +44,7 @@ const OrgUnitTree: React.FC<OrgUnitTreeProps> = ({ orgUnit, onChange }) => {
     const { loading, data, refetch } = useDataQuery(query, {
         lazy: true,
         onComplete: (data) => {
-            setSearchResults(data.orgUnits.organisationUnits);
+            setSearchResults(data?.orgUnits?.organisationUnits || []);
         },
     });
 
@@ -52,6 +54,8 @@ const OrgUnitTree: React.FC<OrgUnitTreeProps> = ({ orgUnit, onChange }) => {
 
         if (value.length >= 3) {
             refetch({ searchValue: value });
+        } else {
+            setSearchResults([]);
         }
     };
 
@@ -73,26 +77,28 @@ const OrgUnitTree: React.FC<OrgUnitTreeProps> = ({ orgUnit, onChange }) => {
             {loading && <p>Loading...</p>}
             {searchResults.length > 0 && (
                 <OrganisationUnitTree
-                    roots={searchResults.map((r) => r.id)}
+                    roots={searchResults.map((r) => r.id || '')}
                     selected={orgUnit?.selected}
                     singleSelection={true}
-                    initiallyExpanded={searchResults.map((r) => r.path)}
+                    initiallyExpanded={searchResults.map((r) => r.path || '')}
                     onChange={(selectedOrgUnits) => {
                         handleSelectOrgUnit(selectedOrgUnits);
                     }}
                 />
             )}
-            <OrganisationUnitTree
-                roots={roots.map((r) => r.id)}
-                selected={orgUnit?.selected}
-                singleSelection={true}
-                initiallyExpanded={roots.map((r) => r.path)}
-                onChange={(selectedOrgUnits) => {
-                    if (typeof onChange === 'function') {
-                        onChange({ id: selectedOrgUnits.id, path: selectedOrgUnits.path, selected: [selectedOrgUnits.path] });
-                    }
-                }}
-            />
+            {inputValue.length < 3 && (
+                <OrganisationUnitTree
+                    roots={roots.map((r) => r.id || '')}
+                    selected={orgUnit?.selected}
+                    singleSelection={true}
+                    initiallyExpanded={roots.map((r) => r.path || '')}
+                    onChange={(selectedOrgUnits) => {
+                        if (typeof onChange === 'function') {
+                            onChange({ id: selectedOrgUnits.id, path: selectedOrgUnits.path, selected: [selectedOrgUnits.path] });
+                        }
+                    }}
+                />
+            )}
         </div>
     ) : error ? (
         <div>{error.message}</div>
